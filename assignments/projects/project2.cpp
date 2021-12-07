@@ -17,29 +17,28 @@ string name[MAX];
 int grade[MAX];
 
 // functions
-void display_menu();
-bool check_cap();
+void menu();
+bool check_cap(int check);
 void add_stu();
-bool check_exist();
+bool check_exist(int check);
 int highest();
 int lowest();
 int mean();
-void remove_stu();
-
+void remove_stu(int id);
 
 int main ()
 {
-    //display menu and allow user to enter option
     while (true)
     {
-        display_menu ;
+        menu();
+        cin >> opt; 
 
         //add student
         if(opt == '1')
         {
             if(check_cap(used))
             {
-                add_stu;  
+                add_stu();  
             }
             else
             {
@@ -69,9 +68,13 @@ int main ()
         //show grade stats
         else if(opt == '3')
         {
-            cout << "Highest Grade: " << highest << endl;
-            cout << "Lowest Grade: " << lowest << endl;
-            cout << "Mean Grade: " << mean << endl;
+            int h = highest();
+            int l = lowest();
+            int m = mean();
+
+            cout << "Highest Grade: " << h << endl;
+            cout << "Lowest Grade: " << l << endl;
+            cout << "Mean Grade: " << m << endl;
         }
 
 
@@ -118,19 +121,6 @@ int main ()
 return 0 ;
 }
 
-void display_menu()
-{
-    cout << "*** CSCI 1010 Student Information Management System ***\n" ;
-    cout << "1. Add Student \n" ;
-    cout << "2. Search by ID \n" ;
-    cout << "3. Grade Statistics\n" ;
-    cout << "4. Remove Student\n" ;
-    cout << "5. Print All Students\n" ;
-    cout << "6. Exit System\n" ;
-
-    cin >> opt ;   
-}
-
 //check capacity for adding new students
 bool check_cap(int check)
 {
@@ -144,6 +134,19 @@ bool check_cap(int check)
     }
 }
 
+//display menu
+void menu()
+{
+    cout << "*** CSCI 1010 Student Information Management System ***\n";
+    cout << "1. Add Student \n";
+    cout << "2. Search by ID \n";
+    cout << "3. Grade Statistics\n";
+    cout << "4. Remove Student\n";
+    cout << "5. Print All Students\n";
+    cout << "6. Exit System\n";
+
+}
+
 //adding new students
 void add_stu()
 {
@@ -151,7 +154,7 @@ void add_stu()
     used++;
     id = used;
 
-    cout << "Student ID is:" << id << endl;
+    cout << "Student ID is: " << id << endl;
 
     //input name and grade. note: address in array is 1 less than ID bc it starts at 0
     cout << "Enter student name: ";
@@ -177,24 +180,16 @@ bool check_exist(int check)
 //find highest grade
 int highest()
 {
-    int high;
+    int high = 0;
 
     for(int h = 0; h < used; h++)
     {
-        if(h = 0)
+        if(grade[h] > high)
         {
             high = grade[h];
         }
-        else
-        {
-            if(grade[h] > high)
-            {
-                high = grade[h];
-            }
-        }
     }
-
-    return high;
+return high;
 }
 
 //find lowest grade
@@ -204,35 +199,27 @@ int lowest()
 
     for(int l = 0; l < used; l++)
     {
-        if(l = 0)
+        
+        if(grade[l] < low)
         {
             low = grade[l];
         }
-        else
-        {
-            if(grade[l] > low)
-            {
-                low = grade[l];
-            }
-        }
     }
-
-    return low;
+return low;
 }
 
 //find mean
 int mean()
 {
-    int mean;
+    int m = 0;
 
-    for(int m = 0; m < used; m++)
+    for(int i = 0; i < used; i++)
     {
-        mean += grade[m];
+        m = m + grade[i];
     }
+    m = m/used;
 
-    mean /= used;
-
-    return mean;
+return m;
 }
 
 //delete student
