@@ -42,7 +42,7 @@ int main ()
             }
             else
             {
-                cout << "Error. System already full." ;
+                cout << "Error. System already full.\n" ;
             }
         }
 
